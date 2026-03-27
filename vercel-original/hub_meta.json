@@ -1,0 +1,101 @@
+{
+  "workflows": [
+    {
+      "id": "community_d70e792e",
+      "title": "AAA",
+      "description": "www",
+      "author": "Anonymous",
+      "tags": [],
+      "category": "Engineering",
+      "stars": 1,
+      "forks": 0,
+      "icon": "📦",
+      "yaml_content": "# Auto-converted to v2\nversion: 2\nrepeat: true\nplan:\n- id: on1\n  expert: creative#temp#1\n- id: on2\n  expert: entrepreneur#temp#1\n- id: on3\n  expert: common_person#temp#1\n- id: on4\n  expert: synthesis#temp#1\nedges:\n- - on1\n  - on4\n- - on2\n  - on4\n- - on3\n  - on4",
+      "detail": "",
+      "published_at": "2026-03-10T13:21:43.324677"
+    },
+    {
+      "id": "imported_04f1cd37",
+      "title": "test",
+      "description": "Team snapshot with 2 agents, 0 OpenClaw agents",
+      "author": "Imported",
+      "tags": [
+        "team",
+        "snapshot"
+      ],
+      "category": "Imported",
+      "stars": 0,
+      "forks": 0,
+      "icon": "📦",
+      "yaml_content": "# Saved from visual orchestrator\nversion: 2\nrepeat: false\nplan:\n- id: on1\n  expert: custom#oasis#test_2\n- id: on2\n  expert: custom#oasis#test1\nedges:\n- - on1\n  - on2\n",
+      "detail": "",
+      "published_at": "2026-03-14T20:54:58.148971",
+      "internal_agents": [
+        {
+          "name": "test1",
+          "tag": ""
+        },
+        {
+          "name": "test_2",
+          "tag": ""
+        }
+      ],
+      "external_agents": [],
+      "oasis_agents": [
+        {
+          "name": "test1",
+          "tag": ""
+        },
+        {
+          "name": "test_2",
+          "tag": ""
+        }
+      ],
+      "openclaw_agents": [],
+      "experts": [],
+      "skills_data": {}
+    },
+    {
+      "id": "community_3423d2cd",
+      "title": "AAAATest",
+      "description": "Team snapshot with 2 agents, 0 OpenClaw agents",
+      "author": "Anonymous",
+      "tags": [
+        "team",
+        "snapshot"
+      ],
+      "category": "Engineering",
+      "stars": 0,
+      "forks": 0,
+      "icon": "📦",
+      "yaml_content": "# Saved from visual orchestrator\nversion: 2\nrepeat: false\nplan:\n- id: on1\n  expert: custom#oasis#test_2\n- id: on2\n  expert: custom#oasis#test1\nedges:\n- - on1\n  - on2\n",
+      "detail": "",
+      "published_at": "2026-03-14T20:59:44.165146",
+      "internal_agents": [
+        {
+          "name": "test1",
+          "tag": ""
+        },
+        {
+          "name": "test_2",
+          "tag": ""
+        }
+      ],
+      "external_agents": [],
+      "oasis_agents": [
+        {
+          "name": "test1",
+          "tag": ""
+        },
+        {
+          "name": "test_2",
+          "tag": ""
+        }
+      ],
+      "openclaw_agents": [],
+      "experts": [],
+      "skills_data": {}
+    }
+  ],
+  "version": 1
+}
