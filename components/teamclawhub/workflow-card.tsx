@@ -63,6 +63,8 @@ export function WorkflowCard({ copied, currentLocale, onCopyDownload, t, workflo
               <PretextText
                 as="h3"
                 text={workflowTitle}
+                balance
+                idealLineCount={2}
                 maxLines={2}
                 reserveLines={2}
                 className="text-base font-semibold leading-[1.12] text-foreground"
