@@ -668,7 +668,7 @@ def auth_github_callback():
     """Handle GitHub OAuth callback, exchange code for access token and fetch user info."""
     code = request.args.get("code")
     if not code:
-return "<h2>Authorization failed: no code provided.</h2><a href='/'>Back to TeamClawHub</a>", 400
+        return "<h2>Authorization failed: no code provided.</h2><a href='/'>Back to TeamClawHub</a>", 400
 
     # Exchange code for access token
     token_resp = http_requests.post(
