@@ -89,6 +89,15 @@ const PRESET_WORKFLOW_LOCALIZATION_OVERRIDES: Record<string, Partial<WorkflowLoc
     }
   },
   brainstorm_trio: {
+    title: { en: "Creative Brainstorm Trio", zh: "创意头脑风暴三人组" },
+    description: {
+      en: "Three perspectives brainstorm in parallel, one reviewer filters the ideas, and a synthesis advisor produces a clear recommendation.",
+      zh: "三个视角并行发想，一个评审负责筛选，最后由综合顾问收敛成清晰结论。"
+    },
+    detail: {
+      en: "A more realistic ideation flow: three different perspectives generate options in parallel, a reviewer trims weak or risky ideas, and the synthesis advisor turns the surviving concepts into one coherent recommendation.",
+      zh: "更贴近真实协作的创意流程：三个不同视角先并行产出方案，再由评审剔除薄弱或高风险想法，最后由综合顾问整理成可执行建议。"
+    },
     experts: {
       "entrepreneur::entrepreneur": {
         name: { en: "Entrepreneur", zh: "企业家" }

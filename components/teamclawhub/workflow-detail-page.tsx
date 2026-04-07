@@ -72,6 +72,8 @@ type ParsedStep =
         displayName: string;
         lookupKeys: string[];
         groupId: string;
+        tooltipTitle?: string;
+        tooltipDescription?: string;
       }>;
     };
 
@@ -207,7 +209,7 @@ function parseAgent(rawStr: string): { displayName: string; lookupKeys: string[]
   }
 
   if ((headLower === "openclaw" || headLower === "external" || headLower === "agent") && parts.length >= 2) {
-    const agentName = parts[parts.length - 1]?.trim() || "";
+    const agentName = (parts.length >= 3 ? parts.slice(2).join("#") : parts[parts.length - 1] || "").trim();
     if (agentName && !isGenericAgentTag(agentName)) {
       return { displayName: agentName, lookupKeys: [agentName, raw, head] };
     }
@@ -316,6 +318,7 @@ function parseYamlToFlowNodes(
       });
       return result;
     };
+    const normalizeTooltipText = (value: unknown): string => normalizeRef(value);
 
     plan.forEach((stepRaw) => {
       if (typeof stepRaw === "string") {
@@ -336,21 +339,44 @@ function parseYamlToFlowNodes(
         const children = step.parallel
           .map((item) => {
             if (typeof item === "string") {
-              return parseAgent(item);
+              const info = parseAgent(item);
+              return {
+                displayName: info.displayName,
+                lookupKeys: info.lookupKeys,
+                tooltipTitle: undefined,
+                tooltipDescription: undefined
+              };
             }
             const childRow = asRecord(item);
             const childExpert = childRow ? normalizeRef(childRow.expert) : "";
-            return childExpert ? parseAgent(childExpert) : null;
+            if (!childExpert) {
+              return null;
+            }
+            const info = parseAgent(childExpert);
+            const instruction = normalizeTooltipText(childRow?.instruction);
+            return {
+              displayName: info.displayName,
+              lookupKeys: info.lookupKeys,
+              tooltipTitle: info.displayName || undefined,
+              tooltipDescription: instruction || undefined
+            };
           })
           .filter(Boolean)
           .map((info) => {
-            const parsedInfo = info as { displayName: string; lookupKeys: string[] };
+            const parsedInfo = info as {
+              displayName: string;
+              lookupKeys: string[];
+              tooltipTitle?: string;
+              tooltipDescription?: string;
+            };
             return {
               id: `n${nodeId++}`,
               type: "expert" as const,
               displayName: parsedInfo.displayName,
               lookupKeys: parsedInfo.lookupKeys,
-              groupId
+              groupId,
+              tooltipTitle: parsedInfo.tooltipTitle,
+              tooltipDescription: parsedInfo.tooltipDescription
             };
           });
         if (children.length) {
@@ -388,6 +414,8 @@ function parseYamlToFlowNodes(
           type = step.selector === true ? "selector" : isExternalAgentReference(expertRaw) ? "external" : "expert";
           displayName = info.displayName || (type === "selector" ? labels.selector : expertRaw);
           lookupKeys = info.lookupKeys;
+          tooltipTitle = displayName;
+          tooltipDescription = normalizeTooltipText(step.instruction);
         }
       }
 
@@ -525,7 +553,14 @@ function buildGraphLayout(parsed: ParsedFlow): GraphLayout {
     if (step.type === "parallel_group") {
       (step.children || []).forEach((child) => {
         allNodeIds.push(child.id);
-        nodeMap[child.id] = { id: child.id, type: "expert", displayName: child.displayName, lookupKeys: child.lookupKeys } as ParsedNode;
+        nodeMap[child.id] = {
+          id: child.id,
+          type: "expert",
+          displayName: child.displayName,
+          lookupKeys: child.lookupKeys,
+          tooltipTitle: child.tooltipTitle,
+          tooltipDescription: child.tooltipDescription
+        } as ParsedNode;
         nodeOrder.set(child.id, nodeOrder.size);
       });
     } else {
@@ -735,7 +770,9 @@ function buildGraphLayout(parsed: ParsedFlow): GraphLayout {
             h: NH,
             type: "parallel",
             displayName: child.displayName,
-            lookupKeys: child.lookupKeys
+            lookupKeys: child.lookupKeys,
+            tooltipTitle: child.tooltipTitle,
+            tooltipDescription: child.tooltipDescription
           });
           childIds.push(child.id);
         });
@@ -1005,30 +1042,65 @@ function buildGraphLayoutFromEngine(raw: unknown, labels: { selector: string }):
 }
 
 function mergeLayoutMetadata(layout: GraphLayout, parsed: ParsedFlow): GraphLayout {
-  const parsedManualNodes = parsed.nodes.filter((node): node is ParsedNode => node.type !== "parallel_group" && node.type === "manual");
-  if (!parsedManualNodes.length) {
+  type ParsedLayoutMetadata = {
+    id: string;
+    type: DiagramNodeType;
+    displayName: string;
+    lookupKeys: string[];
+    label?: string;
+    tooltipTitle?: string;
+    tooltipDescription?: string;
+  };
+
+  const parsedNodes: ParsedLayoutMetadata[] = parsed.nodes.flatMap((node) => {
+    if (node.type === "parallel_group") {
+      return node.children.map((child) => ({
+        id: child.id,
+        type: "parallel" as DiagramNodeType,
+        displayName: child.displayName,
+        lookupKeys: child.lookupKeys,
+        tooltipTitle: child.tooltipTitle,
+        tooltipDescription: child.tooltipDescription
+      }));
+    }
+
+    return [
+      {
+        id: node.id,
+        type: node.type,
+        displayName: node.displayName,
+        lookupKeys: node.lookupKeys,
+        label: node.label,
+        tooltipTitle: node.tooltipTitle,
+        tooltipDescription: node.tooltipDescription
+      }
+    ];
+  });
+  const layoutNodes = layout.nodes.filter((node) => node.type !== "_group");
+  if (!parsedNodes.length || parsedNodes.length !== layoutNodes.length) {
     return layout;
   }
 
-  let manualIndex = 0;
+  let metadataIndex = 0;
   const nodes = layout.nodes.map((node) => {
-    if (node.type !== "manual") {
+    if (node.type === "_group") {
       return node;
     }
 
-    const parsedManual = parsedManualNodes[manualIndex];
-    manualIndex += 1;
-    if (!parsedManual) {
+    const parsedNode = parsedNodes[metadataIndex];
+    metadataIndex += 1;
+    if (!parsedNode) {
       return node;
     }
 
     return {
       ...node,
-      displayName: parsedManual.displayName || node.displayName,
-      lookupKeys: parsedManual.lookupKeys.length ? parsedManual.lookupKeys : node.lookupKeys,
-      label: parsedManual.label || node.label,
-      tooltipTitle: parsedManual.tooltipTitle || node.tooltipTitle,
-      tooltipDescription: parsedManual.tooltipDescription || node.tooltipDescription
+      type: parsedNode.type || node.type,
+      displayName: parsedNode.displayName || node.displayName,
+      lookupKeys: parsedNode.lookupKeys.length ? parsedNode.lookupKeys : node.lookupKeys,
+      label: parsedNode.label || node.label,
+      tooltipTitle: parsedNode.tooltipTitle || node.tooltipTitle,
+      tooltipDescription: parsedNode.tooltipDescription || node.tooltipDescription
     };
   });
 

@@ -10,7 +10,9 @@
     "dev": "next dev -p 51211",
     "build": "next build --webpack",
     "start": "next start -p 51211",
-    "lint": "next lint"
+    "lint": "next lint",
+    "translate:ui": "node --experimental-strip-types scripts/generate-ui-translations.ts",
+    "translate:presets": "node --experimental-strip-types scripts/generate-preset-localizations.ts"
   },
   "dependencies": {
     "@chenglou/pretext": "^0.0.4",

@@ -182,9 +182,9 @@ edges:
   {
     id: "brainstorm_trio",
     title: "Creative Brainstorm Trio",
-    description: "Three experts brainstorm in parallel, then a synthesis advisor summarizes the best ideas.",
+    description: "Three perspectives brainstorm in parallel, one reviewer filters the ideas, and a synthesis advisor produces a clear recommendation.",
 author: "TeamClawHub Team",
-    tags: ["brainstorm", "creative"],
+    tags: ["brainstorm", "creative", "ideation"],
     category: "Ideation",
     stars: 96,
     forks: 22,
@@ -200,6 +200,8 @@ plan:
 - id: on3
   expert: common_person#temp#1
 - id: on4
+  expert: critical#temp#0.7
+- id: on5
   expert: synthesis#temp#1
 edges:
 - - on1
@@ -208,14 +210,16 @@ edges:
   - on4
 - - on3
   - on4
+- - on4
+  - on5
 `,
     detail:
-      "A classic brainstorming workflow: three diverse perspectives (creative thinker, entrepreneur, common person) generate ideas simultaneously, then a synthesis advisor distills the most promising concepts into actionable recommendations."
+      "A more realistic ideation flow: three different perspectives generate options in parallel, a reviewer trims weak or risky ideas, and the synthesis advisor turns the surviving concepts into one coherent recommendation."
   },
   {
     id: "code_review_pipeline",
     title: "Code Review Pipeline",
-    description: "Sequential code review with security, performance, and readability checks.",
+    description: "Bug and performance review happen in parallel, then a synthesis advisor combines them into one prioritized code review report.",
 author: "TeamClawHub Team",
     tags: ["code", "review", "pipeline"],
     category: "Engineering",
@@ -234,12 +238,12 @@ plan:
   expert: synthesis#temp#1
 edges:
 - - on1
-  - on2
+  - on3
 - - on2
   - on3
 `,
     detail:
-      "A thorough code review pipeline: the critical expert checks for bugs and security vulnerabilities, the data analyst evaluates performance metrics, and the synthesis advisor provides an overall assessment with prioritized action items."
+      "A cleaner review topology: bug and security review run alongside performance analysis, then the synthesis advisor merges both signals into a single prioritized assessment. This better matches how engineering teams usually split review work."
   },
   {
     id: "business_debate",
@@ -323,38 +327,54 @@ edges:
   },
   {
     id: "multi_agent_team",
-    title: "Multi-Agent Collaboration Team",
-    description: "A comprehensive team snapshot with internal oasis agents, OpenClaw agents with skills, and external connected agents with cron jobs.",
+    title: "Release Readiness Team",
+    description: "An end-to-end release workflow that combines internal experts, OpenClaw builders, and connected agents for validation and rollout.",
 author: "TeamClawHub Team",
-    tags: ["team", "snapshot", "external", "openclaw"],
+    tags: ["team", "snapshot", "openclaw", "release", "delivery"],
     category: "Engineering",
     stars: 156,
     forks: 42,
     icon: "🌐",
-    yaml_content: `# Multi-Agent Collaboration Team
+    yaml_content: `# Release Readiness Team
 version: 2
-repeat: true
+repeat: false
 plan:
 - id: on1
   expert: data#temp#0.8
 - id: on2
   expert: critical#temp#0.6
 - id: on3
-  expert: creative#temp#0.9
+  expert: openclaw#ext#CodePilot
+  instruction: Implement the agreed release candidate based on the research and review findings.
 - id: on4
+  expert: openclaw#ext#DocWriter
+  instruction: Write release notes and operator-facing documentation for the current build.
+- id: on5
+  expert: external#service#MonitorBot
+  instruction: Validate service health and watch for anomalies during release verification.
+- id: on6
   expert: synthesis#temp#0.7
+- id: on7
+  expert: external#service#SlackNotifier
+  instruction: Send the release summary to the team after the package is ready.
 edges:
-- - on1
-  - on2
 - - on1
   - on3
 - - on2
-  - on4
+  - on3
 - - on3
   - on4
+- - on3
+  - on5
+- - on4
+  - on6
+- - on5
+  - on6
+- - on6
+  - on7
 `,
     detail:
-      "A full-featured multi-agent team demonstrating internal Oasis agents working alongside external OpenClaw agents (with workspace files, skills, and personas) and connected external agents (with cron jobs and custom configurations). This example showcases how different agent types collaborate in a single workflow.",
+      "A more purposeful showcase of mixed agent types: internal experts gather evidence and review risks, OpenClaw agents implement and document the release candidate, a connected monitoring agent validates runtime health, and a notification agent closes the loop with rollout communication.",
     experts_detail: [
       { name: "Data Analyst", tag: "data", persona: "You are a meticulous data analyst who excels at gathering, cleaning, and interpreting complex datasets.", temperature: 0.8 },
       { name: "Critical Reviewer", tag: "critical", persona: "You are a sharp-eyed code reviewer who identifies bugs, security vulnerabilities, and performance bottlenecks.", temperature: 0.6 },

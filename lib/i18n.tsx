@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { UI_TRANSLATIONS_GENERATED } from "@/lib/ui-translations.generated";
+import { UI_TRANSLATIONS_OVERRIDES } from "@/lib/ui-translations.overrides";
 
 export type Locale = "en" | "zh";
 
@@ -26,6 +28,16 @@ const I18nContext = createContext<I18nContextType>({
   setLocale: () => {},
   t: (key: string) => key,
 });
+
+function fallbackLabelFromKey(key: string): string {
+  const tail = key.includes(".") ? key.split(".").pop() || key : key;
+  return tail
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
 export function translateValue(t: (key: string) => string, prefix: string, value: string): string {
   const key = `${prefix}.${value}`;
@@ -333,9 +345,9 @@ const translations: Record<string, Record<Locale, string>> = {
 };
 
 export function getTranslation(key: string, locale: Locale): string {
-  const entry = translations[key];
-  if (!entry) return key;
-  return entry[locale] ?? entry.en ?? key;
+  const entry = UI_TRANSLATIONS_GENERATED[key] ?? UI_TRANSLATIONS_OVERRIDES[key] ?? translations[key];
+  if (!entry) return fallbackLabelFromKey(key);
+  return entry[locale] ?? entry.en ?? fallbackLabelFromKey(key);
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
@@ -362,7 +374,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // Avoid hydration mismatch by rendering children only after mount
   if (!mounted) {
     return (
-      <I18nContext.Provider value={{ locale: "en", setLocale, t: (key) => translations[key]?.en ?? key }}>
+      <I18nContext.Provider value={{ locale: "en", setLocale, t: (key) => getTranslation(key, "en") }}>
         {children}
       </I18nContext.Provider>
     );
