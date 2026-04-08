@@ -616,14 +616,14 @@ export function IntroPage() {
             />
           </div>
 
-          <div className="mt-8 grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)]">
+          <div className="mt-8 grid gap-4 lg:mx-auto lg:max-w-[860px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
             <div className="overflow-hidden rounded-[32px] border border-border/70 bg-background/90 shadow-[0_28px_70px_-42px_rgba(15,23,42,0.5)]">
-              <div className="intro-media-frame aspect-video">
+              <div className="intro-media-frame aspect-[9/16]">
                 <video
                   controls
                   preload="metadata"
                   poster="/wecli/wecli-demo-poster.jpg"
-                  className="h-full w-full object-cover"
+                  className="intro-demo-video h-full w-full object-contain"
                 >
                   <source src="/wecli/wecli-demo.mp4" type="video/mp4" />
                 </video>
@@ -635,7 +635,7 @@ export function IntroPage() {
             </div>
 
             <div className="overflow-hidden rounded-[32px] border border-border/70 bg-background/90 shadow-[0_28px_70px_-42px_rgba(15,23,42,0.5)]">
-              <div className="relative aspect-[5/6] w-full">
+              <div className="relative aspect-[9/16] w-full">
                 <Image
                   src="/wecli/poster.jpg"
                   alt="Wecli poster"

@@ -159,6 +159,16 @@ body {
   background: hsl(var(--muted));
 }
 
+.intro-demo-video {
+  object-fit: contain;
+}
+
+.intro-demo-video:fullscreen,
+.intro-demo-video:-webkit-full-screen {
+  object-fit: contain;
+  background: hsl(var(--muted));
+}
+
 .flow-graph {
   position: relative;
   overflow: hidden;
