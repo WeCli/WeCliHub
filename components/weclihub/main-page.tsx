@@ -93,6 +93,7 @@ export function MainPage() {
   const [user, setUser] = useState<GithubUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string>("");
+  const [wecliReturnUrl, setWecliReturnUrl] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -146,6 +147,12 @@ export function MainPage() {
 
   useEffect(() => {
     void Promise.allSettled([checkAuth(), loadCategories()]);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    setWecliReturnUrl((params.get("return_url") || "").trim());
   }, []);
 
   useEffect(() => {
@@ -304,6 +311,16 @@ export function MainPage() {
     return `curl -L -o "${buildSnapshotFileName(workflow.title || "workflow")}" "${origin}/api/workflows/${workflow.id}/download"`;
   }
 
+  function buildWeCliImportUrl(workflow: Workflow): string {
+    const fallback = typeof window !== "undefined" ? window.location.origin : "https://wecli.net";
+    const downloadUrl = `${fallback}/api/workflows/${workflow.id}/download`;
+    const target = new URL(wecliReturnUrl || fallback);
+    target.searchParams.set("hub_download_url", downloadUrl);
+    target.searchParams.set("team_name", workflow.id);
+    target.searchParams.set("auto_import", "1");
+    return target.toString();
+  }
+
   async function copyDownloadCommand(workflow: Workflow) {
     const ok = await copyToClipboard(buildDownloadCommand(workflow));
     if (ok) {
@@ -312,6 +329,16 @@ export function MainPage() {
       return;
     }
     window.alert(t("main.commandCopyFail"));
+  }
+
+  function importToWecli(workflow: Workflow) {
+    if (!wecliReturnUrl) return;
+    window.location.assign(buildWeCliImportUrl(workflow));
+  }
+
+  function buildWorkflowDetailHref(workflow: Workflow): string {
+    if (!wecliReturnUrl) return `/workflow/${workflow.id}`;
+    return `/workflow/${workflow.id}?return_url=${encodeURIComponent(wecliReturnUrl)}`;
   }
 
   async function submitPublish() {
@@ -573,7 +600,10 @@ export function MainPage() {
                 key={workflow.id}
                 copied={copiedId === workflow.id}
                 currentLocale={currentLocale}
+                detailHref={buildWorkflowDetailHref(workflow)}
                 onCopyDownload={copyDownloadCommand}
+                onImportToWecli={importToWecli}
+                preferImport={Boolean(wecliReturnUrl)}
                 t={t}
                 workflow={workflow}
               />

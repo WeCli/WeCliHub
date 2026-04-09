@@ -1159,6 +1159,7 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
   // Track the cleanup function for the canvas engine so we can re-init
   const canvasCleanupRef = useRef<(() => void) | null>(null);
   const [siteOrigin, setSiteOrigin] = useState("");
+  const [wecliReturnUrl, setWecliReturnUrl] = useState("");
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
   const [expandedPersonas, setExpandedPersonas] = useState<Record<string, boolean>>({});
   const [user, setUser] = useState<GithubUser | null>(null);
@@ -1178,6 +1179,8 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setSiteOrigin(window.location.origin);
+      const params = new URLSearchParams(window.location.search);
+      setWecliReturnUrl((params.get("return_url") || "").trim());
     }
   }, []);
 
@@ -1299,6 +1302,15 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
 
   function downloadZip() {
     window.location.href = `/api/workflows/${workflowId}/download`;
+  }
+
+  function importToWecli() {
+    if (!wecliReturnUrl) return;
+    const target = new URL(wecliReturnUrl);
+    target.searchParams.set("hub_download_url", curlDownloadUrl);
+    target.searchParams.set("team_name", workflowId);
+    target.searchParams.set("auto_import", "1");
+    window.location.assign(target.toString());
   }
 
   async function copyCurlUrl() {
@@ -1805,6 +1817,12 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
                 <Copy className="h-4 w-4" />
                 {t("detail.copyCurl")}
               </Button>
+              {wecliReturnUrl ? (
+                <Button variant="outline" className={detailActionButtonClass} onClick={importToWecli}>
+                  <Download className="h-4 w-4" />
+                  {t("detail.importToWecli")}
+                </Button>
+              ) : null}
               <Button variant="outline" className={detailActionButtonClass} onClick={downloadZip}>
                 <Download className="h-4 w-4" />
                 {t("detail.downloadZip")}

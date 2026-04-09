@@ -14,7 +14,10 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 type WorkflowCardProps = {
   copied: boolean;
   currentLocale: SupportedLocale;
+  detailHref?: string;
   onCopyDownload: (workflow: Workflow) => void;
+  onImportToWecli?: (workflow: Workflow) => void;
+  preferImport?: boolean;
   t: (key: string) => string;
   workflow: Workflow;
 };
@@ -41,13 +44,13 @@ function typeIcons(stepTypes?: string[]): string {
     .join(" ");
 }
 
-export function WorkflowCard({ copied, currentLocale, onCopyDownload, t, workflow }: WorkflowCardProps) {
+export function WorkflowCard({ copied, currentLocale, detailHref, onCopyDownload, onImportToWecli, preferImport = false, t, workflow }: WorkflowCardProps) {
   const workflowTitle = pickWorkflowText(workflow, "title", workflow.title, currentLocale);
   const workflowDescription = pickWorkflowText(workflow, "description", workflow.description, currentLocale);
 
   return (
     <Card className="group relative flex h-full flex-col overflow-hidden transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-lg">
-      <Link href={`/workflow/${workflow.id}`} className="flex flex-1 flex-col">
+      <Link href={detailHref || `/workflow/${workflow.id}`} className="flex flex-1 flex-col">
         {workflow.is_dag ? (
           <div className="absolute right-3 top-3 rounded px-2 py-0.5 text-[11px] font-semibold border border-accent/30 bg-accent/15 text-accent">
             DAG
@@ -109,11 +112,17 @@ export function WorkflowCard({ copied, currentLocale, onCopyDownload, t, workflo
         <button
           type="button"
           className="inline-flex self-start items-center gap-1 whitespace-nowrap rounded-md border border-border px-2 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
-          title={t("main.copyDownloadCommand")}
-          onClick={() => onCopyDownload(workflow)}
+          title={preferImport ? t("main.importToWecli") : t("main.copyDownloadCommand")}
+          onClick={() => {
+            if (preferImport && onImportToWecli) {
+              onImportToWecli(workflow);
+              return;
+            }
+            onCopyDownload(workflow);
+          }}
         >
           <Copy className="h-3 w-3" />
-          {copied ? t("main.commandCopied") : t("main.copyDownloadCommand")}
+          {preferImport ? t("main.importToWecli") : (copied ? t("main.commandCopied") : t("main.copyDownloadCommand"))}
         </button>
       </CardFooter>
     </Card>

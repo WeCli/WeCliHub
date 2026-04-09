@@ -214,6 +214,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "detail.star": { en: "Star", zh: "收藏" },
   "detail.copyYaml": { en: "Copy YAML", zh: "复制 YAML" },
   "detail.downloadZip": { en: "Download ZIP", zh: "下载 ZIP" },
+  "detail.importToWecli": { en: "Import to WeCli", zh: "导入到 WeCli" },
   "detail.dagMode": { en: "⚡ DAG Mode", zh: "⚡ DAG 模式" },
   "detail.repeat": { en: "🔁 Repeat", zh: "🔁 循环" },
   "detail.runOnce": { en: "▶️ Run Once", zh: "▶️ 单次执行" },
@@ -308,6 +309,7 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // ── Main Page actions ──
   "main.copyDownloadCommand": { en: "Download", zh: "下载" },
+  "main.importToWecli": { en: "Import to WeCli", zh: "导入到 WeCli" },
   "main.commandCopied": { en: "✅ Copied!", zh: "✅ 已复制!" },
   "main.commandCopyFail": { en: "❌ Copy failed — please copy manually.", zh: "❌ 复制失败 — 请手动复制。" },
 
