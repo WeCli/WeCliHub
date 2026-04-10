@@ -1,4 +1,4 @@
-import { ProfilePage } from "@/components/weclihub/profile-page";
+import { ProfilePage } from "@/components/clawcrosshub/profile-page";
 
 export default async function Page({ params }: { params: Promise<{ login: string }> }) {
   const { login } = await params;

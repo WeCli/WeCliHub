@@ -7,7 +7,7 @@ import { UI_TRANSLATIONS_OVERRIDES } from "@/lib/ui-translations.overrides";
 
 export type Locale = "en" | "zh";
 
-const STORAGE_KEY = "weclihub_locale";
+const STORAGE_KEY = "clawcrosshub_locale";
 
 function getInitialLocale(): Locale {
   if (typeof window !== "undefined") {
@@ -62,7 +62,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "header.logout": { en: "Logout", zh: "退出登录" },
   "header.settings": { en: "Settings", zh: "设置" },
   "header.language": { en: "Language", zh: "语言" },
-  "header.wecli": { en: "Wecli", zh: "Wecli" },
+  "header.clawcross": { en: "Clawcross", zh: "Clawcross" },
 
   // ── Theme ──
   "theme.switchToLight": { en: "Switch to light mode", zh: "切换到浅色模式" },
@@ -134,7 +134,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "profile.noStarredHint": { en: "Go to the Explore page to discover and star workflows!", zh: "前往浏览页面发现并收藏工作流！" },
   "profile.explore": { en: "Explore page", zh: "浏览页面" },
   "profile.settingsTitle": { en: "⚙️ Profile Settings", zh: "⚙️ 个人设置" },
-"profile.settingsDesc": { en: "Customize your WecliHub profile", zh: "自定义您的 WecliHub 主页" },
+"profile.settingsDesc": { en: "Customize your ClawcrossHub profile", zh: "自定义您的 ClawcrossHub 主页" },
   "profile.displayName": { en: "Display Name", zh: "显示名称" },
   "profile.displayNamePlaceholder": { en: "Your display name", zh: "您的显示名称" },
   "profile.bio": { en: "Bio", zh: "简介" },
@@ -151,7 +151,7 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // ── Profile CRUD Dialogs ──
   "crud.publishNew": { en: "Publish New Workflow", zh: "发布新工作流" },
-"crud.publishNewDesc": { en: "Fill in the details to publish a new workflow to WecliHub.", zh: "填写详细信息以将新工作流发布到 WecliHub。" },
+"crud.publishNewDesc": { en: "Fill in the details to publish a new workflow to ClawcrossHub.", zh: "填写详细信息以将新工作流发布到 ClawcrossHub。" },
   "crud.editWorkflow": { en: "Edit Workflow", zh: "编辑工作流" },
   "crud.editWorkflowDesc": { en: "Update the details of", zh: "更新工作流详情" },
   "crud.deleteWorkflow": { en: "Delete Workflow", zh: "删除工作流" },
@@ -168,7 +168,7 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // ── Settings Dialog ──
   "settings.title": { en: "Settings", zh: "设置" },
-"settings.description": { en: "Customize your WecliHub preferences", zh: "自定义您的 WecliHub 偏好设置" },
+"settings.description": { en: "Customize your ClawcrossHub preferences", zh: "自定义您的 ClawcrossHub 偏好设置" },
   "settings.language": { en: "Language", zh: "语言" },
   "settings.english": { en: "English", zh: "English" },
   "settings.chinese": { en: "中文", zh: "中文" },
@@ -214,7 +214,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "detail.star": { en: "Star", zh: "收藏" },
   "detail.copyYaml": { en: "Copy YAML", zh: "复制 YAML" },
   "detail.downloadZip": { en: "Download ZIP", zh: "下载 ZIP" },
-  "detail.importToWecli": { en: "Import to WeCli", zh: "导入到 WeCli" },
+  "detail.importToClawcross": { en: "Import to ClawCross", zh: "导入到 ClawCross" },
   "detail.dagMode": { en: "⚡ DAG Mode", zh: "⚡ DAG 模式" },
   "detail.repeat": { en: "🔁 Repeat", zh: "🔁 循环" },
   "detail.runOnce": { en: "▶️ Run Once", zh: "▶️ 单次执行" },
@@ -301,15 +301,15 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // ── Magic Prompt ──
   "main.magicPromptText": {
-    en: "Clone https://github.com/WeCli/WeCli.git, read AGENTS.md, and install Wecli.",
-    zh: "Clone https://github.com/WeCli/WeCli.git，读取 SKILL.md，然后安装 Wecli。",
+    en: "Clone https://github.com/ClawCross/ClawCross.git, read AGENTS.md, and install Clawcross.",
+    zh: "Clone https://github.com/ClawCross/ClawCross.git，读取 SKILL.md，然后安装 Clawcross。",
   },
   "main.magicPromptCopied": { en: "✅ Magic Prompt copied", zh: "✅ Magic Prompt 已复制" },
   "main.magicPromptCopyFail": { en: "❌ Copy failed — please copy manually.", zh: "❌ 复制失败 — 请手动复制。" },
 
   // ── Main Page actions ──
   "main.copyDownloadCommand": { en: "Download", zh: "下载" },
-  "main.importToWecli": { en: "Import to WeCli", zh: "导入到 WeCli" },
+  "main.importToClawcross": { en: "Import to ClawCross", zh: "导入到 ClawCross" },
   "main.commandCopied": { en: "✅ Copied!", zh: "✅ 已复制!" },
   "main.commandCopyFail": { en: "❌ Copy failed — please copy manually.", zh: "❌ 复制失败 — 请手动复制。" },
 
@@ -342,7 +342,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "detail.dag": { en: "DAG", zh: "DAG" },
 
   // ── Metadata ──
-"meta.title": { en: "WeCliHub — Workflow Community", zh: "WeCliHub — 工作流社区" },
+"meta.title": { en: "ClawCrossHub — Workflow Community", zh: "ClawCrossHub — 工作流社区" },
 "meta.description": { en: "Community Workflow Marketplace", zh: "社区工作流市场" },
 };
 

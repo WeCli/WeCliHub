@@ -10,9 +10,9 @@ import { translateValue, useI18n } from "@/lib/i18n";
 import { buildSnapshotFileName } from "@/lib/snapshot-name";
 import { pickWorkflowTag, pickWorkflowText } from "@/lib/workflow-localization";
 
-import { SiteHeader } from "@/components/weclihub/site-header";
-import { StableI18nText } from "@/components/weclihub/stable-i18n-text";
-import { WorkflowCard } from "@/components/weclihub/workflow-card";
+import { SiteHeader } from "@/components/clawcrosshub/site-header";
+import { StableI18nText } from "@/components/clawcrosshub/stable-i18n-text";
+import { WorkflowCard } from "@/components/clawcrosshub/workflow-card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -93,8 +93,8 @@ export function MainPage() {
   const [user, setUser] = useState<GithubUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string>("");
-  const [wecliReturnUrl, setWecliReturnUrl] = useState("");
-  const [wecliReturnOrigin, setWecliReturnOrigin] = useState("");
+  const [clawcrossReturnUrl, setClawcrossReturnUrl] = useState("");
+  const [clawcrossReturnOrigin, setClawcrossReturnOrigin] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -153,8 +153,8 @@ export function MainPage() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    setWecliReturnUrl((params.get("return_url") || "").trim());
-    setWecliReturnOrigin((params.get("return_origin") || "").trim());
+    setClawcrossReturnUrl((params.get("return_url") || "").trim());
+    setClawcrossReturnOrigin((params.get("return_origin") || "").trim());
   }, []);
 
   useEffect(() => {
@@ -309,14 +309,14 @@ export function MainPage() {
   }
 
   function buildDownloadCommand(workflow: Workflow): string {
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://wecli.net";
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://clawcross.net";
     return `curl -L -o "${buildSnapshotFileName(workflow.title || "workflow")}" "${origin}/api/workflows/${workflow.id}/download"`;
   }
 
-  function buildWeCliImportUrl(workflow: Workflow): string {
-    const fallback = typeof window !== "undefined" ? window.location.origin : "https://wecli.net";
+  function buildClawCrossImportUrl(workflow: Workflow): string {
+    const fallback = typeof window !== "undefined" ? window.location.origin : "https://clawcross.net";
     const downloadUrl = `${fallback}/api/workflows/${workflow.id}/download`;
-    const target = new URL(wecliReturnUrl || fallback);
+    const target = new URL(clawcrossReturnUrl || fallback);
     target.searchParams.set("hub_download_url", downloadUrl);
     target.searchParams.set("team_name", workflow.id);
     return target.toString();
@@ -332,31 +332,31 @@ export function MainPage() {
     window.alert(t("main.commandCopyFail"));
   }
 
-  function importToWecli(workflow: Workflow) {
-    if (!wecliReturnUrl) return;
+  function importToClawcross(workflow: Workflow) {
+    if (!clawcrossReturnUrl) return;
     const payload = {
-      type: "wecli_hub_import",
-      hub_download_url: `${typeof window !== "undefined" ? window.location.origin : "https://wecli.net"}/api/workflows/${workflow.id}/download`,
+      type: "clawcross_hub_import",
+      hub_download_url: `${typeof window !== "undefined" ? window.location.origin : "https://clawcross.net"}/api/workflows/${workflow.id}/download`,
       team_name: workflow.id
     };
-    if (typeof window !== "undefined" && window.opener && wecliReturnOrigin) {
+    if (typeof window !== "undefined" && window.opener && clawcrossReturnOrigin) {
       try {
-        window.opener.postMessage(payload, wecliReturnOrigin);
+        window.opener.postMessage(payload, clawcrossReturnOrigin);
         window.close();
         return;
       } catch {
         // fall through to URL redirect
       }
     }
-    window.location.assign(buildWeCliImportUrl(workflow));
+    window.location.assign(buildClawCrossImportUrl(workflow));
   }
 
   function buildWorkflowDetailHref(workflow: Workflow): string {
-    if (!wecliReturnUrl) return `/workflow/${workflow.id}`;
+    if (!clawcrossReturnUrl) return `/workflow/${workflow.id}`;
     const params = new URLSearchParams();
-    params.set("return_url", wecliReturnUrl);
-    if (wecliReturnOrigin) {
-      params.set("return_origin", wecliReturnOrigin);
+    params.set("return_url", clawcrossReturnUrl);
+    if (clawcrossReturnOrigin) {
+      params.set("return_origin", clawcrossReturnOrigin);
     }
     return `/workflow/${workflow.id}?${params.toString()}`;
   }
@@ -622,8 +622,8 @@ export function MainPage() {
                 currentLocale={currentLocale}
                 detailHref={buildWorkflowDetailHref(workflow)}
                 onCopyDownload={copyDownloadCommand}
-                onImportToWecli={importToWecli}
-                preferImport={Boolean(wecliReturnUrl)}
+                onImportToClawcross={importToClawcross}
+                preferImport={Boolean(clawcrossReturnUrl)}
                 t={t}
                 workflow={workflow}
               />

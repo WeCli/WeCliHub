@@ -12,7 +12,7 @@ export function ThemeToggle() {
 
   // Initialize theme from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem("weclihub-theme");
+    const stored = localStorage.getItem("clawcrosshub-theme");
     const prefersDark = stored === "dark";
     setIsDark(prefersDark);
     if (prefersDark) {
@@ -27,10 +27,10 @@ export function ThemeToggle() {
     setIsDark(next);
     if (next) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("weclihub-theme", "dark");
+      localStorage.setItem("clawcrosshub-theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("weclihub-theme", "light");
+      localStorage.setItem("clawcrosshub-theme", "light");
     }
   }
 

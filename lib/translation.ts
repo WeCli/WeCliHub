@@ -20,12 +20,12 @@ import {
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
 const OPENAI_BASE_URL = (process.env.OPENAI_BASE_URL?.trim() || "https://api.openai.com/v1").replace(/\/+$/, "");
 const TRANSLATION_MODEL =
-  process.env.WECLIHUB_TRANSLATION_MODEL?.trim() ||
+  process.env.CLAWCROSSHUB_TRANSLATION_MODEL?.trim() ||
   process.env.FLOWHUB_TRANSLATION_MODEL?.trim() ||
   process.env.OPENAI_TRANSLATION_MODEL?.trim() ||
   "gpt-4.1-mini";
 const TRANSLATION_DISABLED_ENV =
-  process.env.WECLIHUB_DISABLE_AUTO_TRANSLATION ?? process.env.FLOWHUB_DISABLE_AUTO_TRANSLATION;
+  process.env.CLAWCROSSHUB_DISABLE_AUTO_TRANSLATION ?? process.env.FLOWHUB_DISABLE_AUTO_TRANSLATION;
 const TRANSLATION_DISABLED = TRANSLATION_DISABLED_ENV === "1";
 const MAX_BATCH_ITEMS = 12;
 const MAX_BATCH_CHARS = 6000;

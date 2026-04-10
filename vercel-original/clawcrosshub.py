@@ -1,12 +1,12 @@
 """
-WeCliHub — Community Workflow Marketplace
+ClawCrossHub — Community Workflow Marketplace
 ==========================================
 A GitHub-style community platform for browsing, sharing, and selecting
 OASIS workflow templates. Users can discover pre-built workflows, preview
 their structure, and import them into the visual orchestrator.
 
 Run:
-  python weclihub.py
+  python clawcrosshub.py
   Open http://127.0.0.1:51211
 """
 
@@ -41,7 +41,7 @@ UPLOAD_DIR = os.path.join(_THIS_DIR, "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # Default port
-WECLIHUB_PORT = 51211
+CLAWCROSSHUB_PORT = 51211
 
 # Import _yaml_to_layout_data from visual system for canvas rendering
 try:
@@ -73,7 +73,7 @@ except Exception:
 def _extract_experts_from_yaml(yaml_content: str) -> list:
     """Parse YAML plan and extract unique expert tags.
     Expert format in YAML: "tag#temp#value" or "tag#oasis#name"
-    Returns list of {name, tag, persona, temperature} dicts (Wecli format).
+    Returns list of {name, tag, persona, temperature} dicts (Clawcross format).
     Also returns a list of internal agent dicts [{name, tag}].
     """
     try:
@@ -151,7 +151,7 @@ PRESET_WORKFLOWS = [
         "id": "ml_code_test",
         "title": "ML Code Testing Pipeline",
         "description": "Automated machine learning code testing workflow with parallel agents analyzing why this pipeline is optimal for ML testing scenarios.",
-        "author": "WeCliHub Team",
+        "author": "ClawCrossHub Team",
         "tags": ["ml", "code", "pipeline"],
         "category": "Engineering",
         "stars": 128,
@@ -183,7 +183,7 @@ edges:
         "id": "brainstorm_trio",
         "title": "Creative Brainstorm Trio",
         "description": "Three experts brainstorm in parallel, then a synthesis advisor summarizes the best ideas.",
-        "author": "WeCliHub Team",
+        "author": "ClawCrossHub Team",
         "tags": ["brainstorm", "creative"],
         "category": "Ideation",
         "stars": 96,
@@ -215,7 +215,7 @@ edges:
         "id": "code_review_pipeline",
         "title": "Code Review Pipeline",
         "description": "Sequential code review with security, performance, and readability checks.",
-        "author": "WeCliHub Team",
+        "author": "ClawCrossHub Team",
         "tags": ["code", "review", "pipeline"],
         "category": "Engineering",
         "stars": 203,
@@ -243,7 +243,7 @@ edges:
         "id": "business_debate",
         "title": "Business Strategy Debate",
         "description": "Economist, lawyer, and entrepreneur debate business strategy from different angles.",
-        "author": "WeCliHub Team",
+        "author": "ClawCrossHub Team",
         "tags": ["debate", "brainstorm"],
         "category": "Business",
         "stars": 75,
@@ -285,7 +285,7 @@ edges:
         "id": "dag_research_pipeline",
         "title": "Research Analysis DAG",
         "description": "DAG-based research pipeline with parallel data collection and sequential analysis.",
-        "author": "WeCliHub Team",
+        "author": "ClawCrossHub Team",
         "tags": ["pipeline", "data"],
         "category": "Research",
         "stars": 64,
@@ -429,7 +429,7 @@ GITHUB_REDIRECT_URI = os.environ.get("GITHUB_REDIRECT_URI", "http://127.0.0.1:51
 
 # ── Flask App ──
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET_KEY", hashlib.sha256(b"weclihub-default-secret-key").hexdigest())
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", hashlib.sha256(b"clawcrosshub-default-secret-key").hexdigest())
 
 
 # ── GitHub OAuth Routes ──
@@ -452,7 +452,7 @@ def auth_github_callback():
     """Handle GitHub OAuth callback, exchange code for access token and fetch user info."""
     code = request.args.get("code")
     if not code:
-        return "<h2>Authorization failed: no code provided.</h2><a href='/'>Back to WeCliHub</a>", 400
+        return "<h2>Authorization failed: no code provided.</h2><a href='/'>Back to ClawCrossHub</a>", 400
 
     # Exchange code for access token
     token_resp = http_requests.post(
@@ -516,7 +516,7 @@ def _require_github_login():
 
 @app.route("/")
 def index():
-    """Serve the WeCliHub main page."""
+    """Serve the ClawCrossHub main page."""
     return render_template_string(MAIN_HTML)
 
 
@@ -825,7 +825,7 @@ def api_get_workflow_layout(workflow_id):
 
 def _do_import_zip(file, *, author="Imported", team_name="", extra_agents=None,
                    description="", category="", tags=None):
-    """Core logic for importing a Wecli team snapshot ZIP file.
+    """Core logic for importing a Clawcross team snapshot ZIP file.
     Called by both api_import_zip (direct upload) and api_import_json (backward-compat wrapper).
     Supports optional description, category, tags from the unified publish modal.
     """
@@ -837,7 +837,7 @@ def _do_import_zip(file, *, author="Imported", team_name="", extra_agents=None,
     try:
         zip_buffer = io.BytesIO(file.read() if hasattr(file, 'read') else file.stream.read())
         imported = []
-        internal_agents = []   # from internal_agents.json (Wecli format)
+        internal_agents = []   # from internal_agents.json (Clawcross format)
         external_agents = []   # from external_agents.json (OpenClaw agents)
         experts_list = []      # from oasis_experts.json
 
@@ -932,7 +932,7 @@ def _do_import_zip(file, *, author="Imported", team_name="", extra_agents=None,
                     "yaml_content": yaml_content,
                     "detail": "",
                     "published_at": datetime.now().isoformat(),
-                    # Store in Wecli-compatible fields
+                    # Store in Clawcross-compatible fields
                     "internal_agents": internal_agents,
                     "external_agents": external_agents,
                     "oasis_agents": internal_agents,      # alias for display
@@ -990,8 +990,8 @@ def _do_import_zip(file, *, author="Imported", team_name="", extra_agents=None,
 
 @app.route("/api/import/zip", methods=["POST"])
 def api_import_zip():
-    """Import a Wecli team snapshot ZIP file. Requires GitHub login.
-    Wecli ZIP format:
+    """Import a Clawcross team snapshot ZIP file. Requires GitHub login.
+    Clawcross ZIP format:
       - internal_agents.json   [{name, tag}]  (session stripped)
       - external_agents.json   [{name, tag:"openclaw", config, workspace_files}] (global_name stripped)
       - oasis_experts.json     [{name, tag, persona, temperature}]
@@ -1060,7 +1060,7 @@ def api_import_json():
         raw_bytes = file.read()
         fname = file.filename
 
-    # Auto-detect JSON filename → proper Wecli naming
+    # Auto-detect JSON filename → proper Clawcross naming
     base = os.path.basename(fname).lower()
     if "external" in base or "openclaw" in base:
         inner_name = "external_agents.json"
@@ -1092,7 +1092,7 @@ def api_import_json():
 
 @app.route("/api/workflows/<workflow_id>/download", methods=["GET"])
 def api_download_zip(workflow_id):
-    """Download a workflow as a Wecli-compatible team snapshot ZIP.
+    """Download a workflow as a Clawcross-compatible team snapshot ZIP.
     Output format matches front.py's /teams/snapshot/download exactly:
       - internal_agents.json   [{name, tag}]  (session stripped)
       - external_agents.json   [{name, tag, config, workspace_files}] (global_name stripped)
@@ -1100,7 +1100,7 @@ def api_download_zip(workflow_id):
       - oasis/yaml/<name>.yaml  Workflow YAML files
       - skills/<agent>/        OpenClaw agent skill folders (if available)
       - skills/_managed/       Managed skill folders (if available)
-    This ZIP can be uploaded directly to Wecli via /teams/snapshot/upload.
+    This ZIP can be uploaded directly to Clawcross via /teams/snapshot/upload.
     """
     # Find workflow
     wf = None
@@ -1126,7 +1126,7 @@ def api_download_zip(workflow_id):
             if yaml_content:
                 yaml_experts, yaml_internal = _extract_experts_from_yaml(yaml_content)
 
-            # --- 1. JSON metadata files (same order as Wecli front.py) ---
+            # --- 1. JSON metadata files (same order as Clawcross front.py) ---
             json_files_written = set()
 
             # internal_agents.json — strip session field (private)
@@ -1180,7 +1180,7 @@ def api_download_zip(workflow_id):
                 zf.writestr("oasis_experts.json", json.dumps(experts, indent=2, ensure_ascii=False))
                 json_files_written.add("oasis_experts.json")
 
-            # --- 2. YAML files in oasis/yaml/ subdirectory (Wecli convention) ---
+            # --- 2. YAML files in oasis/yaml/ subdirectory (Clawcross convention) ---
             if yaml_content:
                 safe_name = wf.get("title", "workflow").replace(" ", "_").replace("\u2014", "-").lower()
                 safe_name = "".join(c for c in safe_name if c.isalnum() or c in ('_', '-')).strip('_')
@@ -1201,7 +1201,7 @@ def api_download_zip(workflow_id):
 
         zip_buffer.seek(0)
 
-        # Generate filename with timestamp (matches Wecli format)
+        # Generate filename with timestamp (matches Clawcross format)
         safe_title = wf.get("title", "workflow").replace(" ", "_").lower()[:40]
         safe_title = "".join(c for c in safe_title if c.isalnum() or c in ('_', '-'))
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1225,7 +1225,7 @@ MAIN_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WeCliHub — Workflow Community</title>
+<title>ClawCrossHub — Workflow Community</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--accent:#58a6ff;--accent2:#238636;--accent-hover:#1f6feb;--green:#3fb950;--orange:#d29922;--pink:#f778ba;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,.3)}
@@ -1320,7 +1320,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 </head>
 <body>
 <div class="header">
-  <div class="logo">🌊 <span>WeCliHub</span></div>
+  <div class="logo">🌊 <span>ClawCrossHub</span></div>
   <nav>
     <a href="/" class="active">Explore</a>
     <a href="javascript:void(0)" onclick="openPublishModal()">📤 Publish</a>
@@ -1747,7 +1747,7 @@ DETAIL_HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WeCliHub — Workflow Detail</title>
+<title>ClawCrossHub — Workflow Detail</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--accent:#58a6ff;--accent2:#238636;--green:#3fb950;--orange:#d29922;--pink:#f778ba;--radius:8px}
@@ -1859,7 +1859,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 </head>
 <body>
 <div class="header">
-  <a href="/" style="text-decoration:none"><div class="logo">🌊 <span>WeCliHub</span></div></a>
+  <a href="/" style="text-decoration:none"><div class="logo">🌊 <span>ClawCrossHub</span></div></a>
 </div>
 
 <div class="container">
@@ -1895,7 +1895,7 @@ async function loadDetail() {
     return;
   }
   const w = await resp.json();
-  document.title = `WeCliHub — ${w.title}`;
+  document.title = `ClawCrossHub — ${w.title}`;
 
   const tagsHtml = (w.tags||[]).map(t => `<span class="badge tag">${t}</span>`).join('');
   const dagBadge = w.is_dag ? '<span class="badge dag">⚡ DAG Mode</span>' : '';
@@ -2109,7 +2109,7 @@ function parseYamlToFlowNodes(yamlStr) {
 }
 
 function renderFlowGraph(parsed, container, panelHtml) {
-  // Render a Wecli-style node + wire graph using HTML nodes + SVG edges
+  // Render a Clawcross-style node + wire graph using HTML nodes + SVG edges
   const nodes = parsed.nodes || [];
   const dagEdges = parsed.dagEdges; // null = linear, array = DAG
   if (!container || !nodes.length) {
@@ -2525,7 +2525,7 @@ function buildSidebarAgents(w) {
 function renderAgentsSection(w) {
   let html = '';
 
-  // OpenClaw / External agents (Wecli format: list [{name, tag:"openclaw", config, workspace_files}])
+  // OpenClaw / External agents (Clawcross format: list [{name, tag:"openclaw", config, workspace_files}])
   let ocList = w.external_agents || w.openclaw_agents || [];
   // Support legacy dict format too: {name: {config, workspace_files}}
   if (!Array.isArray(ocList) && typeof ocList === 'object') {
@@ -2547,7 +2547,7 @@ function renderAgentsSection(w) {
     html += `<div class="section"><div class="section-header">🤖 OpenClaw Agents (${openclawAgents.length})</div><div class="section-body"><div style="display:flex;gap:12px;flex-wrap:wrap">${cards}</div></div></div>`;
   }
 
-  // Internal / OASIS agents (Wecli format: [{name, tag}])
+  // Internal / OASIS agents (Clawcross format: [{name, tag}])
   const ia = w.internal_agents || w.oasis_agents || [];
   if (Array.isArray(ia) && ia.length) {
     let chips = ia.map(a => {
@@ -2598,7 +2598,7 @@ loadDetail();
 # ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("=" * 60)
-    print("  🌊 WeCliHub — Workflow Community Platform")
-    print(f"  Open http://127.0.0.1:{WECLIHUB_PORT} in your browser")
+    print("  🌊 ClawCrossHub — Workflow Community Platform")
+    print(f"  Open http://127.0.0.1:{CLAWCROSSHUB_PORT} in your browser")
     print("=" * 60)
-    app.run(host="0.0.0.0", port=WECLIHUB_PORT, debug=True)
+    app.run(host="0.0.0.0", port=CLAWCROSSHUB_PORT, debug=True)

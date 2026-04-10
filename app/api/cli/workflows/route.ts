@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
     const lines: string[] = [];
 
     lines.push("=".repeat(80));
-    lines.push("  WeCliHub — Workflow Catalog");
+    lines.push("  ClawCrossHub — Workflow Catalog");
     lines.push("=".repeat(80));
     lines.push("");
     lines.push(`  Total: ${items.length} workflow(s)`);

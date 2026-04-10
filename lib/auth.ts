@@ -5,7 +5,7 @@ import type { NextRequest, NextResponse } from "next/server";
 import { SESSION_SECRET } from "@/lib/constants";
 import type { GithubUser } from "@/lib/types";
 
-const COOKIE_NAME = "weclihub_session";
+const COOKIE_NAME = "clawcrosshub_session";
 const COOKIE_SECURE = process.env.NODE_ENV === "production";
 const OAUTH_STATE_MAX_AGE_MS = 10 * 60 * 1000;
 

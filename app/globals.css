@@ -57,13 +57,13 @@ body {
   @apply bg-background text-foreground antialiased;
 }
 
-.weclihub-logo-text {
+.clawcrosshub-logo-text {
   display: inline-block;
   color: hsl(var(--primary));
 }
 
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .weclihub-logo-text {
+  .clawcrosshub-logo-text {
     background-image: linear-gradient(90deg, hsl(var(--primary)), rgb(244 114 182));
     background-clip: text;
     -webkit-background-clip: text;

@@ -1,6 +1,6 @@
-# Legacy WecliHub (Flask)
+# Legacy ClawcrossHub (Flask)
 
-This folder contains the original single-file Flask implementation extracted from `WecliHub 2.zip`.
+This folder contains the original single-file Flask implementation extracted from `ClawcrossHub 2.zip`.
 
 ## Deploy on Vercel for side-by-side comparison
 

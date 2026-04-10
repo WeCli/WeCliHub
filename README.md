@@ -1,10 +1,10 @@
-# 🌊 WeCliHub
+# 🌊 ClawCrossHub
 
-**A community marketplace for discovering, sharing, and distributing multi-agent OASIS workflows — built for [Wecli](https://github.com/WeCli/WeCli).**
+**A community marketplace for discovering, sharing, and distributing multi-agent OASIS workflows — built for [Clawcross](https://github.com/ClawCross/ClawCross).**
 
-WecliHub is where Wecli teams publish their workflow templates so others can browse, star, download, and remix them. Think of it as a "workflow app store" for multi-agent orchestration.
+ClawcrossHub is where Clawcross teams publish their workflow templates so others can browse, star, download, and remix them. Think of it as a "workflow app store" for multi-agent orchestration.
 
-> **Live site**: [wecli.net](https://wecli.net/)
+> **Live site**: [clawcross.net](https://clawcross.net/)
 
 ---
 
@@ -36,16 +36,16 @@ WecliHub is where Wecli teams publish their workflow templates so others can bro
 ### 🖥️ CLI-Friendly API
 ```bash
 # List all workflows (JSON)
-curl https://wecli.net/api/cli/workflows
+curl https://clawcross.net/api/cli/workflows
 
 # Pretty-printed table for terminal
-curl -H 'Accept: text/plain' https://wecli.net/api/cli/workflows
+curl -H 'Accept: text/plain' https://clawcross.net/api/cli/workflows
 
 # Search by keyword
-curl 'https://wecli.net/api/cli/workflows?search=creative'
+curl 'https://clawcross.net/api/cli/workflows?search=creative'
 
 # Download a workflow as ZIP
-curl -L -o workflow.zip https://wecli.net/api/workflows/<id>/download
+curl -L -o workflow.zip https://clawcross.net/api/workflows/<id>/download
 ```
 
 ---
@@ -78,8 +78,8 @@ curl -L -o workflow.zip https://wecli.net/api/workflows/<id>/download
 
 ```bash
 # Clone the repository
-git clone https://github.com/WeCli/WeCliHub.git
-cd WeCliHub
+git clone https://github.com/ClawCross/ClawCrossHub.git
+cd ClawCrossHub
 
 # Install dependencies
 npm install
@@ -113,7 +113,7 @@ npm run start      # → http://localhost:51211
 ## 📐 Project Structure
 
 ```
-WecliHub/
+ClawcrossHub/
 ├── app/                          # Next.js App Router
 │   ├── layout.tsx                # Root layout (I18nProvider)
 │   ├── page.tsx                  # Home → <MainPage />
@@ -130,11 +130,11 @@ WecliHub/
 │   ├── profile/[login]/          # User profile page
 │   └── workflow/[workflowId]/    # Workflow detail page
 ├── components/
-│   ├── weclihub/
+│   ├── clawcrosshub/
 │   │   ├── main-page.tsx         # Home page (search, filter, publish)
 │   │   ├── profile-page.tsx      # Profile (CRUD, stars, settings)
 │   │   ├── workflow-detail-page.tsx  # Detail (diagram, agents, YAML)
-│   │   └── logo.tsx              # WecliHub logo
+│   │   └── logo.tsx              # ClawcrossHub logo
 │   └── ui/                       # shadcn/ui primitives
 ├── lib/
 │   ├── workflow-store.ts         # Core data layer (JSON read/write)
@@ -193,7 +193,7 @@ WecliHub/
 
 ## 🔐 Authentication
 
-WecliHub uses **GitHub OAuth 2.0** for authentication:
+ClawcrossHub uses **GitHub OAuth 2.0** for authentication:
 
 1. User clicks "Sign in with GitHub" → redirected to GitHub authorization page
 2. GitHub calls back with an authorization code
@@ -208,7 +208,7 @@ WecliHub uses **GitHub OAuth 2.0** for authentication:
 
 ## 🗄️ Data Model
 
-WecliHub uses a **lightweight JSON file store** (no external database):
+ClawcrossHub uses a **lightweight JSON file store** (no external database):
 
 - **`hub_meta.json`** — All community-published workflows
 - **`star_records.json`** — User star records
@@ -225,18 +225,18 @@ WecliHub uses a **lightweight JSON file store** (no external database):
 
 ---
 
-## 🤝 Relation to Wecli
+## 🤝 Relation to Clawcross
 
-WecliHub is a companion project to [Wecli](https://github.com/WeCli/WeCli) — a multi-agent collaboration framework. The relationship:
+ClawcrossHub is a companion project to [Clawcross](https://github.com/ClawCross/ClawCross) — a multi-agent collaboration framework. The relationship:
 
-- **Wecli** → The runtime engine. Creates teams of AI agents that collaborate through OASIS workflows.
-- **WecliHub** → The distribution hub. Lets users share and discover workflow templates that run on Wecli.
+- **Clawcross** → The runtime engine. Creates teams of AI agents that collaborate through OASIS workflows.
+- **ClawcrossHub** → The distribution hub. Lets users share and discover workflow templates that run on Clawcross.
 
 A typical workflow:
-1. Design a multi-agent workflow in Wecli
+1. Design a multi-agent workflow in Clawcross
 2. Export it as a Team Snapshot ZIP (agents + workflow YAML + skills)
-3. Publish to WecliHub for the community
-4. Others browse WecliHub, download the ZIP, and import into their Wecli instance
+3. Publish to ClawcrossHub for the community
+4. Others browse ClawcrossHub, download the ZIP, and import into their Clawcross instance
 
 ---
 
@@ -247,5 +247,5 @@ Apache License 2.0
 ---
 
 <p align="center">
-  Built with ❤️ for the Wecli community
+  Built with ❤️ for the Clawcross community
 </p>

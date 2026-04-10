@@ -1,4 +1,4 @@
-import { WorkflowDetailPage } from "@/components/weclihub/workflow-detail-page";
+import { WorkflowDetailPage } from "@/components/clawcrosshub/workflow-detail-page";
 
 export default async function WorkflowPage({
   params

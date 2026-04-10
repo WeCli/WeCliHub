@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Github } from "lucide-react";
 
-import { LanguageToggle } from "@/components/weclihub/language-toggle";
-import { WecliHubLogo } from "@/components/weclihub/logo";
-import { StableI18nText } from "@/components/weclihub/stable-i18n-text";
-import { ThemeToggle } from "@/components/weclihub/theme-toggle";
+import { LanguageToggle } from "@/components/clawcrosshub/language-toggle";
+import { ClawcrossHubLogo } from "@/components/clawcrosshub/logo";
+import { StableI18nText } from "@/components/clawcrosshub/stable-i18n-text";
+import { ThemeToggle } from "@/components/clawcrosshub/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -24,12 +24,12 @@ function navLinkClass(active: boolean) {
   );
 }
 
-export function SiteHeader({ activePage, repoLabelKey = "header.wecli", children }: SiteHeaderProps) {
+export function SiteHeader({ activePage, repoLabelKey = "header.clawcross", children }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="container flex h-16 items-center gap-3">
         <Link href="/" className="text-xl font-bold text-primary">
-          <WecliHubLogo />
+          <ClawcrossHubLogo />
         </Link>
 
         <nav className="hidden md:block">
@@ -55,7 +55,7 @@ export function SiteHeader({ activePage, repoLabelKey = "header.wecli", children
           <LanguageToggle />
 
           <a
-            href="https://github.com/WeCli/WeCli"
+            href="https://github.com/ClawCross/ClawCross"
             target="_blank"
             rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline" }), "hidden sm:inline-flex")}
@@ -65,12 +65,12 @@ export function SiteHeader({ activePage, repoLabelKey = "header.wecli", children
           </a>
 
           <a
-            href="https://github.com/WeCli/WeCli"
+            href="https://github.com/ClawCross/ClawCross"
             target="_blank"
             rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "icon" }), "sm:hidden")}
-            aria-label="Wecli GitHub"
-            title="Wecli GitHub"
+            aria-label="Clawcross GitHub"
+            title="Clawcross GitHub"
           >
             <Github className="h-4 w-4" />
           </a>

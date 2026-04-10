@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Copy, Github } from "lucide-react";
 import { useState } from "react";
 
-import { PretextText } from "@/components/weclihub/pretext-text";
-import { SiteHeader } from "@/components/weclihub/site-header";
+import { PretextText } from "@/components/clawcrosshub/pretext-text";
+import { SiteHeader } from "@/components/clawcrosshub/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,45 +78,45 @@ type IntroCopy = {
 const INTRO_COPY: Record<Locale, IntroCopy> = {
   en: {
     eyebrow: "Local-first AI workspace",
-    title: "Run AI teams locally. Design workflows visually. Share flows through WecliHub.",
+    title: "Run AI teams locally. Design workflows visually. Share flows through ClawcrossHub.",
     body:
-      "Wecli combines a local OpenAI-compatible API, a web UI, Teams and expert personas, OASIS orchestration, OASIS Town, living GraphRAG memory, WeCli Creator, and a Claude-Code-style WeBot runtime. WecliHub is the flow distribution platform that helps those reusable flows travel.",
-    bridgeLine: "Discover flows on WecliHub. Run them in Wecli locally.",
-    hubLabel: "Flow distribution platform for Wecli",
-    loopBody: "Wecli is the runtime and operating model. WecliHub is the distribution surface for reusable flows.",
+      "Clawcross combines a local OpenAI-compatible API, a web UI, Teams and expert personas, OASIS orchestration, OASIS Town, living GraphRAG memory, ClawCross Creator, and a Claude-Code-style WeBot runtime. ClawcrossHub is the flow distribution platform that helps those reusable flows travel.",
+    bridgeLine: "Discover flows on ClawcrossHub. Run them in Clawcross locally.",
+    hubLabel: "Flow distribution platform for Clawcross",
+    loopBody: "Clawcross is the runtime and operating model. ClawcrossHub is the distribution surface for reusable flows.",
     primaryCta: "Explore Workflows",
-    secondaryCta: "Get Wecli",
+    secondaryCta: "Get Clawcross",
     videoCta: "Watch Demo",
     trustPills: [
       "OpenAI-compatible API",
       "OASIS workflows",
       "OASIS Town",
       "GraphRAG memory",
-      "WeCli Creator",
+      "ClawCross Creator",
       "WeBot subagents"
     ],
     loopTitle: "Two surfaces, one workflow loop",
     loopCards: [
       {
         emoji: "🧩",
-        title: "Wecli runtime",
+        title: "Clawcross runtime",
         body: "Local workspace, Teams, personas, orchestration, memory, bots, and operator tooling."
       },
       {
         emoji: "📦",
-        title: "WecliHub distribution",
-        body: "Browse, publish, and share reusable Wecli flows as portable workflow artifacts."
+        title: "ClawcrossHub distribution",
+        body: "Browse, publish, and share reusable Clawcross flows as portable workflow artifacts."
       },
       {
         emoji: "🔁",
         title: "One connected loop",
-        body: "Build and run locally in Wecli, then package and distribute flows through the Hub."
+        body: "Build and run locally in Clawcross, then package and distribute flows through the Hub."
       }
     ],
     installTitle: "Install via any AI coding assistant",
     installBody:
-      "README and SKILL.md are written so Codex, Cursor, Claude Code, and similar assistants can set Wecli up with the documented flow instead of a hand-written checklist.",
-    installPrompt: "Clone https://github.com/WeCli/WeCli.git, read AGENTS.md, and install Wecli.",
+      "README and SKILL.md are written so Codex, Cursor, Claude Code, and similar assistants can set Clawcross up with the documented flow instead of a hand-written checklist.",
+    installPrompt: "Clone https://github.com/ClawCross/ClawCross.git, read AGENTS.md, and install Clawcross.",
     copyPrompt: "Copy install prompt",
     copiedPrompt: "Copied",
     mediaEyebrow: "Media",
@@ -125,9 +125,9 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
     videoCardTitle: "Demo Video",
     videoCardBody: "A quick walkthrough of the runtime, UI, and orchestration working together.",
     posterCardTitle: "Poster",
-    posterCardBody: "The core visual carried over from the main WeCli repository.",
+    posterCardBody: "The core visual carried over from the main ClawCross repository.",
     featureEyebrow: "Core product",
-    featureTitle: "Why Wecli feels different",
+    featureTitle: "Why Clawcross feels different",
     featureBody:
       "The differentiation is not one isolated feature. It is the combination of local control, visual orchestration, live observability, sharable Team artifacts, and an agent-friendly operating model.",
     featureCards: [
@@ -153,7 +153,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       },
       {
         emoji: "🛠️",
-        title: "WeCli Creator",
+        title: "ClawCross Creator",
         body: "Turn a task description or discovered SOP pages into editable roles, personas, and workflows."
       },
       {
@@ -164,17 +164,17 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
     ],
     evidenceEyebrow: "Evidence",
     evidenceTitle: "Real product surfaces, not a marketing wishlist",
-    evidenceBody: "These capabilities already exist in the Wecli repository today.",
+    evidenceBody: "These capabilities already exist in the Clawcross repository today.",
     evidenceCards: [
       {
         emoji: "🖥️",
         title: "OpenAI-compatible local API",
-        body: "Expose a local /v1/chat/completions endpoint so standard clients and tools can talk to Wecli."
+        body: "Expose a local /v1/chat/completions endpoint so standard clients and tools can talk to Clawcross."
       },
       {
         emoji: "📡",
         title: "Bots, voice, and remote access",
-        body: "Telegram, QQ, TTS/STT, login tokens, and Cloudflare Tunnel push Wecli beyond a desktop-only tool."
+        body: "Telegram, QQ, TTS/STT, login tokens, and Cloudflare Tunnel push Clawcross beyond a desktop-only tool."
       },
       {
         emoji: "📈",
@@ -203,7 +203,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       {
         number: "03",
         title: "Browse, build, and share flows",
-        body: "Discover flows on WecliHub, then import, adapt, or recreate them inside Wecli."
+        body: "Discover flows on ClawcrossHub, then import, adapt, or recreate them inside Clawcross."
       }
     ],
     audienceEyebrow: "Audience",
@@ -222,7 +222,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       {
         emoji: "🧑‍💻",
         title: "AI coding assistants",
-        body: "Wecli is documented so coding agents can install, operate, and extend it with progressive disclosure."
+        body: "Clawcross is documented so coding agents can install, operate, and extend it with progressive disclosure."
       }
     ],
     guardrailsEyebrow: "Prerequisites",
@@ -233,46 +233,46 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       "Remote access still requires authentication even when localhost runs passwordless."
     ],
     footerEyebrow: "Call to action",
-    footerTitle: "Start on the Hub. Run it locally in Wecli.",
+    footerTitle: "Start on the Hub. Run it locally in Clawcross.",
     footerBody:
-      "WecliHub is where flows are discovered and distributed. Wecli is where the runtime, teams, orchestration, and memory actually execute.",
-    footerPrimaryCta: "Browse WecliHub",
-    footerSecondaryCta: "Open Wecli GitHub"
+      "ClawcrossHub is where flows are discovered and distributed. Clawcross is where the runtime, teams, orchestration, and memory actually execute.",
+    footerPrimaryCta: "Browse ClawcrossHub",
+    footerSecondaryCta: "Open Clawcross GitHub"
   },
   zh: {
     eyebrow: "本地优先的 AI 工作空间",
-    title: "在本地运行 AI 团队，可视化设计工作流，并通过 WecliHub 分发分享。",
+    title: "在本地运行 AI 团队，可视化设计工作流，并通过 ClawcrossHub 分发分享。",
     body:
-      "Wecli 把本地 OpenAI 兼容 API、网页 UI、团队与专家 persona、OASIS 编排、OASIS Town、持续演化的 GraphRAG 记忆、WeCli Creator，以及类 Claude Code 的 WeBot 运行时放进同一个系统里。WecliHub 则负责这些可复用 flow 的发现、分发与分享。",
-    bridgeLine: "在 WecliHub 发现 flow，在 Wecli 本地运行它们。",
-    hubLabel: "Wecli 的 flow 分发平台",
-    loopBody: "Wecli 是真正执行的运行时与操作模型，WecliHub 则是可复用 flow 的分发与发现表面。",
+      "Clawcross 把本地 OpenAI 兼容 API、网页 UI、团队与专家 persona、OASIS 编排、OASIS Town、持续演化的 GraphRAG 记忆、ClawCross Creator，以及类 Claude Code 的 WeBot 运行时放进同一个系统里。ClawcrossHub 则负责这些可复用 flow 的发现、分发与分享。",
+    bridgeLine: "在 ClawcrossHub 发现 flow，在 Clawcross 本地运行它们。",
+    hubLabel: "Clawcross 的 flow 分发平台",
+    loopBody: "Clawcross 是真正执行的运行时与操作模型，ClawcrossHub 则是可复用 flow 的分发与发现表面。",
     primaryCta: "浏览工作流",
-    secondaryCta: "获取 Wecli",
+    secondaryCta: "获取 Clawcross",
     videoCta: "观看演示",
-    trustPills: ["OpenAI 兼容 API", "OASIS 工作流", "OASIS Town", "GraphRAG 记忆", "WeCli Creator", "WeBot 子代理"],
+    trustPills: ["OpenAI 兼容 API", "OASIS 工作流", "OASIS Town", "GraphRAG 记忆", "ClawCross Creator", "WeBot 子代理"],
     loopTitle: "两个产品表面，一条完整工作流闭环",
     loopCards: [
       {
         emoji: "🧩",
-        title: "Wecli 运行时",
+        title: "Clawcross 运行时",
         body: "负责本地工作空间、Teams、persona、编排、记忆、机器人和操作台能力。"
       },
       {
         emoji: "📦",
-        title: "WecliHub 分发层",
-        body: "负责浏览、发布、分享可复用的 Wecli flow，把工作流做成可携带的资产。"
+        title: "ClawcrossHub 分发层",
+        body: "负责浏览、发布、分享可复用的 Clawcross flow，把工作流做成可携带的资产。"
       },
       {
         emoji: "🔁",
         title: "同一条闭环",
-        body: "先在 Wecli 本地构建与运行，再通过 Hub 打包和分发 flow。"
+        body: "先在 Clawcross 本地构建与运行，再通过 Hub 打包和分发 flow。"
       }
     ],
     installTitle: "通过任意 AI 编程助手安装",
     installBody:
-      "README 和 SKILL.md 已经按 AI agent 可执行的方式组织好了。Codex、Cursor、Claude Code 这类工具可以直接按文档流程完成 Wecli 安装，而不是照着一串手写步骤逐项点点点。",
-    installPrompt: "Clone https://github.com/WeCli/WeCli.git，读取 SKILL.md，然后安装 Wecli。",
+      "README 和 SKILL.md 已经按 AI agent 可执行的方式组织好了。Codex、Cursor、Claude Code 这类工具可以直接按文档流程完成 Clawcross 安装，而不是照着一串手写步骤逐项点点点。",
+    installPrompt: "Clone https://github.com/ClawCross/ClawCross.git，读取 SKILL.md，然后安装 Clawcross。",
     copyPrompt: "复制安装提示词",
     copiedPrompt: "已复制",
     mediaEyebrow: "媒体",
@@ -281,9 +281,9 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
     videoCardTitle: "演示视频",
     videoCardBody: "快速了解运行时、UI 与编排能力的联动效果。",
     posterCardTitle: "海报",
-    posterCardBody: "延续 WeCli 主仓库的核心视觉。",
+    posterCardBody: "延续 ClawCross 主仓库的核心视觉。",
     featureEyebrow: "核心产品",
-    featureTitle: "为什么 Wecli 不一样",
+    featureTitle: "为什么 Clawcross 不一样",
     featureBody:
       "它的差异不在某一个孤立功能，而在于本地控制、可视化编排、实时可观测性、可分享的 Team 资产，以及 agent-friendly 的操作模型被放进了同一个系统。",
     featureCards: [
@@ -309,7 +309,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       },
       {
         emoji: "🛠️",
-        title: "WeCli Creator",
+        title: "ClawCross Creator",
         body: "把任务描述或 SOP 页面直接转成可编辑的角色、persona 和 workflow。"
       },
       {
@@ -320,12 +320,12 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
     ],
     evidenceEyebrow: "真实能力",
     evidenceTitle: "不是营销空话，而是真实的产品表面",
-    evidenceBody: "下面这些能力都已经在 Wecli 仓库中落地存在。",
+    evidenceBody: "下面这些能力都已经在 Clawcross 仓库中落地存在。",
     evidenceCards: [
       {
         emoji: "🖥️",
         title: "本地 OpenAI 兼容 API",
-        body: "暴露本地 /v1/chat/completions，让标准客户端和工具直接接入 Wecli。"
+        body: "暴露本地 /v1/chat/completions，让标准客户端和工具直接接入 Clawcross。"
       },
       {
         emoji: "📡",
@@ -359,7 +359,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       {
         number: "03",
         title: "浏览、构建并分发 flow",
-        body: "先在 WecliHub 发现 flow，再把它们导入、改造或在 Wecli 里重新生成运行。"
+        body: "先在 ClawcrossHub 发现 flow，再把它们导入、改造或在 Clawcross 里重新生成运行。"
       }
     ],
     audienceEyebrow: "适用人群",
@@ -378,7 +378,7 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       {
         emoji: "🧑‍💻",
         title: "AI 编程助手",
-        body: "Wecli 的文档采用 progressive disclosure，方便编码代理安装、运维和继续扩展。"
+        body: "Clawcross 的文档采用 progressive disclosure，方便编码代理安装、运维和继续扩展。"
       }
     ],
     guardrailsEyebrow: "环境要求",
@@ -389,11 +389,11 @@ const INTRO_COPY: Record<Locale, IntroCopy> = {
       "即使 localhost 免密运行，远程访问仍需要身份验证。"
     ],
     footerEyebrow: "行动入口",
-    footerTitle: "从 Hub 开始，在 Wecli 本地运行。",
+    footerTitle: "从 Hub 开始，在 Clawcross 本地运行。",
     footerBody:
-      "WecliHub 负责 flow 的发现与分发，Wecli 负责真正的运行时、团队、编排与记忆执行。两者是一条完整闭环，不是同一个产品表面。",
-    footerPrimaryCta: "浏览 WecliHub",
-    footerSecondaryCta: "打开 Wecli GitHub"
+      "ClawcrossHub 负责 flow 的发现与分发，Clawcross 负责真正的运行时、团队、编排与记忆执行。两者是一条完整闭环，不是同一个产品表面。",
+    footerPrimaryCta: "浏览 ClawcrossHub",
+    footerSecondaryCta: "打开 Clawcross GitHub"
   }
 };
 
@@ -487,7 +487,7 @@ export function IntroPage() {
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <a
-                    href="https://github.com/WeCli/WeCli"
+                    href="https://github.com/ClawCross/ClawCross"
                     target="_blank"
                     rel="noreferrer"
                     className={buttonVariants({ variant: "outline" })}
@@ -524,7 +524,7 @@ export function IntroPage() {
                     <div className="intro-logo-badge rounded-3xl border border-primary/15 p-3 shadow-sm">
                       <Image
                         src="/icon.svg"
-                        alt="WecliHub icon"
+                        alt="ClawcrossHub icon"
                         width={80}
                         height={80}
                         className="h-14 w-14 sm:h-16 sm:w-16"
@@ -620,10 +620,10 @@ export function IntroPage() {
                 <video
                   controls
                   preload="metadata"
-                  poster={locale === "en" ? "/wecli/wecli-demo-poster-en.png" : "/wecli/wecli-demo-poster.jpg"}
+                  poster={locale === "en" ? "/clawcross/clawcross-demo-poster-en.png" : "/clawcross/clawcross-demo-poster.jpg"}
                   className="intro-demo-video h-full w-full object-contain"
                 >
-                  <source src="/wecli/wecli-demo.mp4" type="video/mp4" />
+                  <source src="/clawcross/clawcross-demo.mp4" type="video/mp4" />
                 </video>
               </div>
               <div className="p-6">
@@ -635,8 +635,8 @@ export function IntroPage() {
             <div className="overflow-hidden rounded-[32px] border border-border/70 bg-background/90 shadow-[0_28px_70px_-42px_rgba(15,23,42,0.5)]">
               <div className="relative aspect-[9/16] w-full">
                 <Image
-                  src={locale === "en" ? "/wecli/poster_en.png" : "/wecli/poster.jpg"}
-                  alt="WeCli poster"
+                  src={locale === "en" ? "/clawcross/poster_en.png" : "/clawcross/poster.jpg"}
+                  alt="ClawCross poster"
                   fill
                   sizes="(min-width: 1280px) 36rem, (min-width: 768px) 50vw, 100vw"
                   className="object-cover object-top"
@@ -789,7 +789,7 @@ export function IntroPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <a
-                  href="https://github.com/WeCli/WeCli"
+                  href="https://github.com/ClawCross/ClawCross"
                   target="_blank"
                   rel="noreferrer"
                   className={buttonVariants({ variant: "outline" })}

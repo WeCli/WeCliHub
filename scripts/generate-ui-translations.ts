@@ -6,7 +6,7 @@ import { UI_TRANSLATION_SEED } from "../lib/ui-translation-seed";
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
 const OPENAI_BASE_URL = (process.env.OPENAI_BASE_URL?.trim() || "https://api.openai.com/v1").replace(/\/+$/, "");
 const TRANSLATION_MODEL =
-  process.env.WECLIHUB_TRANSLATION_MODEL?.trim() ||
+  process.env.CLAWCROSSHUB_TRANSLATION_MODEL?.trim() ||
   process.env.FLOWHUB_TRANSLATION_MODEL?.trim() ||
   process.env.OPENAI_TRANSLATION_MODEL?.trim() ||
   "gpt-4.1-mini";

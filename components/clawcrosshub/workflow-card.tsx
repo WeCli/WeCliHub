@@ -7,7 +7,7 @@ import type { SupportedLocale, Workflow } from "@/lib/types";
 import { translateValue } from "@/lib/i18n";
 import { pickWorkflowTag, pickWorkflowText } from "@/lib/workflow-localization";
 
-import { PretextText } from "@/components/weclihub/pretext-text";
+import { PretextText } from "@/components/clawcrosshub/pretext-text";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
@@ -16,7 +16,7 @@ type WorkflowCardProps = {
   currentLocale: SupportedLocale;
   detailHref?: string;
   onCopyDownload: (workflow: Workflow) => void;
-  onImportToWecli?: (workflow: Workflow) => void;
+  onImportToClawcross?: (workflow: Workflow) => void;
   preferImport?: boolean;
   t: (key: string) => string;
   workflow: Workflow;
@@ -44,7 +44,7 @@ function typeIcons(stepTypes?: string[]): string {
     .join(" ");
 }
 
-export function WorkflowCard({ copied, currentLocale, detailHref, onCopyDownload, onImportToWecli, preferImport = false, t, workflow }: WorkflowCardProps) {
+export function WorkflowCard({ copied, currentLocale, detailHref, onCopyDownload, onImportToClawcross, preferImport = false, t, workflow }: WorkflowCardProps) {
   const workflowTitle = pickWorkflowText(workflow, "title", workflow.title, currentLocale);
   const workflowDescription = pickWorkflowText(workflow, "description", workflow.description, currentLocale);
 
@@ -112,17 +112,17 @@ export function WorkflowCard({ copied, currentLocale, detailHref, onCopyDownload
         <button
           type="button"
           className="inline-flex self-start items-center gap-1 whitespace-nowrap rounded-md border border-border px-2 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
-          title={preferImport ? t("main.importToWecli") : t("main.copyDownloadCommand")}
+          title={preferImport ? t("main.importToClawcross") : t("main.copyDownloadCommand")}
           onClick={() => {
-            if (preferImport && onImportToWecli) {
-              onImportToWecli(workflow);
+            if (preferImport && onImportToClawcross) {
+              onImportToClawcross(workflow);
               return;
             }
             onCopyDownload(workflow);
           }}
         >
           <Copy className="h-3 w-3" />
-          {preferImport ? t("main.importToWecli") : (copied ? t("main.commandCopied") : t("main.copyDownloadCommand"))}
+          {preferImport ? t("main.importToClawcross") : (copied ? t("main.commandCopied") : t("main.copyDownloadCommand"))}
         </button>
       </CardFooter>
     </Card>

@@ -6,7 +6,7 @@ import { resolveGithubRedirectUri } from "@/lib/oauth";
 
 export async function GET(request: NextRequest) {
   if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
-    return new NextResponse("<h2>GitHub OAuth not configured.</h2><a href='/'>Back to WeCliHub</a>", {
+    return new NextResponse("<h2>GitHub OAuth not configured.</h2><a href='/'>Back to ClawCrossHub</a>", {
       status: 500,
       headers: { "content-type": "text/html; charset=utf-8" }
     });
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
   const oauthError = request.nextUrl.searchParams.get("error");
   if (oauthError) {
-    return new NextResponse(`<h2>Authorization failed: ${oauthError}</h2><a href='/'>Back to WeCliHub</a>`, {
+    return new NextResponse(`<h2>Authorization failed: ${oauthError}</h2><a href='/'>Back to ClawCrossHub</a>`, {
       status: 400,
       headers: { "content-type": "text/html; charset=utf-8" }
     });
@@ -23,13 +23,13 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const state = request.nextUrl.searchParams.get("state");
   if (!code) {
-    return new NextResponse("<h2>Authorization failed: no code provided.</h2><a href='/'>Back to WeCliHub</a>", {
+    return new NextResponse("<h2>Authorization failed: no code provided.</h2><a href='/'>Back to ClawCrossHub</a>", {
       status: 400,
       headers: { "content-type": "text/html; charset=utf-8" }
     });
   }
   if (!verifyOauthState(state)) {
-    return new NextResponse("<h2>Authorization failed: invalid oauth state.</h2><a href='/'>Back to WeCliHub</a>", {
+    return new NextResponse("<h2>Authorization failed: invalid oauth state.</h2><a href='/'>Back to ClawCrossHub</a>", {
       status: 400,
       headers: { "content-type": "text/html; charset=utf-8" }
     });

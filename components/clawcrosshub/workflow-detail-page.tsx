@@ -3,8 +3,8 @@
 import { ArrowLeft, Copy, Download, Github, LogOut, Star, UserRound } from "lucide-react";
 import yaml from "js-yaml";
 
-import { SiteHeader } from "@/components/weclihub/site-header";
-import { StableI18nText } from "@/components/weclihub/stable-i18n-text";
+import { SiteHeader } from "@/components/clawcrosshub/site-header";
+import { StableI18nText } from "@/components/clawcrosshub/stable-i18n-text";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -1159,8 +1159,8 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
   // Track the cleanup function for the canvas engine so we can re-init
   const canvasCleanupRef = useRef<(() => void) | null>(null);
   const [siteOrigin, setSiteOrigin] = useState("");
-  const [wecliReturnUrl, setWecliReturnUrl] = useState("");
-  const [wecliReturnOrigin, setWecliReturnOrigin] = useState("");
+  const [clawcrossReturnUrl, setClawcrossReturnUrl] = useState("");
+  const [clawcrossReturnOrigin, setClawcrossReturnOrigin] = useState("");
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
   const [expandedPersonas, setExpandedPersonas] = useState<Record<string, boolean>>({});
   const [user, setUser] = useState<GithubUser | null>(null);
@@ -1181,8 +1181,8 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
     if (typeof window !== "undefined") {
       setSiteOrigin(window.location.origin);
       const params = new URLSearchParams(window.location.search);
-      setWecliReturnUrl((params.get("return_url") || "").trim());
-      setWecliReturnOrigin((params.get("return_origin") || "").trim());
+      setClawcrossReturnUrl((params.get("return_url") || "").trim());
+      setClawcrossReturnOrigin((params.get("return_origin") || "").trim());
     }
   }, []);
 
@@ -1306,23 +1306,23 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
     window.location.href = `/api/workflows/${workflowId}/download`;
   }
 
-  function importToWecli() {
-    if (!wecliReturnUrl) return;
+  function importToClawcross() {
+    if (!clawcrossReturnUrl) return;
     const payload = {
-      type: "wecli_hub_import",
+      type: "clawcross_hub_import",
       hub_download_url: curlDownloadUrl,
       team_name: workflowId
     };
-    if (typeof window !== "undefined" && window.opener && wecliReturnOrigin) {
+    if (typeof window !== "undefined" && window.opener && clawcrossReturnOrigin) {
       try {
-        window.opener.postMessage(payload, wecliReturnOrigin);
+        window.opener.postMessage(payload, clawcrossReturnOrigin);
         window.close();
         return;
       } catch {
         // fall through to URL redirect
       }
     }
-    const target = new URL(wecliReturnUrl);
+    const target = new URL(clawcrossReturnUrl);
     target.searchParams.set("hub_download_url", curlDownloadUrl);
     target.searchParams.set("team_name", workflowId);
     window.location.assign(target.toString());
@@ -1690,7 +1690,7 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
 
     return { oasis: oasisAgents, openclaw: openclawAgents, external: externalAgentsList, custom: customAgentsList };
   }, [workflow, internalAgents, externalAgents]);
-  const curlDownloadUrl = `${siteOrigin || "https://wecli.net"}/api/workflows/${workflowId}/download`;
+  const curlDownloadUrl = `${siteOrigin || "https://clawcross.net"}/api/workflows/${workflowId}/download`;
   const curlDownloadCommand = `curl -L -o "${buildSnapshotFileName(workflow?.title || "workflow")}" "${curlDownloadUrl}"`;
   const localizeWorkflowText = useCallback(
     (field: "title" | "description" | "detail" | "category", fallback: string): string => {
@@ -1832,10 +1832,10 @@ export function WorkflowDetailPage({ workflowId }: { workflowId: string }) {
                 <Copy className="h-4 w-4" />
                 {t("detail.copyCurl")}
               </Button>
-              {wecliReturnUrl ? (
-                <Button variant="outline" className={detailActionButtonClass} onClick={importToWecli}>
+              {clawcrossReturnUrl ? (
+                <Button variant="outline" className={detailActionButtonClass} onClick={importToClawcross}>
                   <Download className="h-4 w-4" />
-                  {t("detail.importToWecli")}
+                  {t("detail.importToClawcross")}
                 </Button>
               ) : null}
               <Button variant="outline" className={detailActionButtonClass} onClick={downloadZip}>

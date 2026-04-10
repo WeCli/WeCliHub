@@ -2,8 +2,8 @@
 
 import { ArrowLeft, Edit, ExternalLink, Github, LogOut, Plus, Settings, Star, Trash2, UserRound, X } from "lucide-react";
 
-import { SiteHeader } from "@/components/weclihub/site-header";
-import { StableI18nText } from "@/components/weclihub/stable-i18n-text";
+import { SiteHeader } from "@/components/clawcrosshub/site-header";
+import { StableI18nText } from "@/components/clawcrosshub/stable-i18n-text";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
@@ -231,7 +231,7 @@ export function ProfilePage({ login }: { login: string }) {
   function handleSaveSettings() {
     if (typeof window !== "undefined") {
       localStorage.setItem(
-        `weclihub_profile_${login}`,
+        `clawcrosshub_profile_${login}`,
         JSON.stringify({ displayName, bio })
       );
     }
@@ -242,7 +242,7 @@ export function ProfilePage({ login }: { login: string }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem(`weclihub_profile_${login}`);
+        const saved = localStorage.getItem(`clawcrosshub_profile_${login}`);
         if (saved) {
           const parsed = JSON.parse(saved) as { displayName?: string; bio?: string };
           if (parsed.displayName) setDisplayName(parsed.displayName);

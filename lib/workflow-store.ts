@@ -10,8 +10,8 @@ import type { Agent, Expert, HubMeta, Workflow } from "@/lib/types";
 import { appendWorkflowSearchText } from "@/lib/workflow-localization";
 
 // Keys used in Vercel Blob storage
-const BLOB_HUB_META_KEY = "weclihub/hub_meta.json";
-const BLOB_STAR_RECORDS_KEY = "weclihub/star_records.json";
+const BLOB_HUB_META_KEY = "clawcrosshub/hub_meta.json";
+const BLOB_STAR_RECORDS_KEY = "clawcrosshub/star_records.json";
 const IS_VERCEL = process.env.VERCEL === "1";
 
 export class PersistenceError extends Error {
